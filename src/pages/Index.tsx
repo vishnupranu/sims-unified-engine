@@ -1,10 +1,10 @@
 import { Helmet } from "react-helmet-async";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { HeroSection } from "@/components/HeroSection";
-import { CollegesSection } from "@/components/CollegesSection";
+import { HeroSlider3D } from "@/components/HeroSlider3D";
+import { Colleges3D } from "@/components/Colleges3D";
 import { NewsSection } from "@/components/NewsSection";
-import { TestimonialsSection } from "@/components/TestimonialsSection";
+import { Testimonials3D } from "@/components/Testimonials3D";
 import { CTASection } from "@/components/CTASection";
 
 const Index = () => {
@@ -23,10 +23,10 @@ const Index = () => {
       <div className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-1">
-          <HeroSection />
-          <CollegesSection />
+          <HeroSlider3D />
+          <Colleges3D />
           <NewsSection />
-          <TestimonialsSection />
+          <Testimonials3D />
           <CTASection />
         </main>
         <Footer />

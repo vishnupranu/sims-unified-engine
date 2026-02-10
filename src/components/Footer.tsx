@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { MapPin, Phone, Mail, Facebook, Twitter, Instagram, Linkedin, Youtube } from "lucide-react";
-import logo from "@/assets/logo.svg";
+
 
 const quickLinks = [
   { name: "About Us", path: "/about" },
@@ -32,7 +32,9 @@ export function Footer() {
           {/* Brand */}
           <div className="space-y-6">
             <div className="flex items-center gap-3">
-              <img src={logo} alt="SIMS" className="h-12 w-auto brightness-0 invert" />
+              <div className="w-12 h-12 rounded-xl gradient-gold flex items-center justify-center">
+                <span className="font-display text-lg font-bold text-foreground">S</span>
+              </div>
               <div>
                 <h3 className="font-display text-lg font-bold">SIMS Group</h3>
                 <p className="text-sm text-primary-foreground/70">of Institutions</p>

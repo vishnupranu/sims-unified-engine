@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown, Phone, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logo from "@/assets/logo.svg";
+
 const colleges = [{
   name: "SIMS College of Pharmacy",
   path: "/colleges/pharmacy"
@@ -73,10 +73,10 @@ export function Header() {
             </a>
           </div>
           <div className="flex items-center gap-4">
-            <Link to="/login" className="hover:text-accent transition-colors font-medium">
+            <Link to="/auth" className="hover:text-accent transition-colors font-medium">
               Student Portal
             </Link>
-            <Link to="/login" className="hover:text-accent transition-colors font-medium">
+            <Link to="/auth" className="hover:text-accent transition-colors font-medium">
               Faculty Portal
             </Link>
           </div>
@@ -88,11 +88,12 @@ export function Header() {
         <div className="container flex items-center justify-between py-4">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
-            <img src={logo} alt="SIMS Group of Institutions" className="h-14 w-auto" />
+            <div className="w-12 h-12 rounded-xl gradient-gold flex items-center justify-center">
+              <span className="font-display text-lg font-bold text-foreground">S</span>
+            </div>
             <div className="hidden md:block">
-              <h1 className="font-display text-lg font-bold text-primary leading-tight">
-            </h1>
-              
+              <h1 className="font-display text-lg font-bold text-primary leading-tight">SIMS Group</h1>
+              <p className="text-xs text-muted-foreground">of Institutions</p>
             </div>
           </Link>
 
