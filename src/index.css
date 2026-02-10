@@ -8,7 +8,6 @@
 
 @layer base {
   :root {
-    /* Core brand colors - Professional education blue palette */
     --background: 210 33% 98%;
     --foreground: 215 28% 17%;
 
@@ -18,19 +17,15 @@
     --popover: 0 0% 100%;
     --popover-foreground: 215 28% 17%;
 
-    /* Primary - Deep institutional blue */
     --primary: 215 72% 25%;
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary - Healthcare teal */
     --secondary: 180 45% 35%;
     --secondary-foreground: 0 0% 100%;
 
-    /* Muted backgrounds */
     --muted: 210 20% 94%;
     --muted-foreground: 215 16% 47%;
 
-    /* Accent - Academic gold */
     --accent: 38 92% 50%;
     --accent-foreground: 215 28% 17%;
 
@@ -43,25 +38,21 @@
 
     --radius: 0.75rem;
 
-    /* Custom colors for colleges */
     --pharmacy: 280 60% 45%;
     --nursing: 340 65% 47%;
     --physiotherapy: 200 70% 45%;
     --education: 150 50% 40%;
     --life-sciences: 120 45% 40%;
 
-    /* Gradients */
     --gradient-hero: linear-gradient(135deg, hsl(215 72% 25%) 0%, hsl(180 45% 35%) 100%);
     --gradient-gold: linear-gradient(135deg, hsl(38 92% 50%) 0%, hsl(32 90% 45%) 100%);
     --gradient-overlay: linear-gradient(180deg, hsla(215, 72%, 25%, 0.9) 0%, hsla(180, 45%, 35%, 0.85) 100%);
 
-    /* Shadows */
     --shadow-sm: 0 1px 2px hsla(215, 28%, 17%, 0.05);
     --shadow-md: 0 4px 12px hsla(215, 28%, 17%, 0.08);
     --shadow-lg: 0 10px 40px hsla(215, 28%, 17%, 0.12);
     --shadow-glow: 0 0 30px hsla(38, 92%, 50%, 0.3);
 
-    /* Sidebar */
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
@@ -163,42 +154,179 @@
     box-shadow: var(--shadow-glow);
   }
 
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
+  /* 3D perspective container */
+  .perspective-1000 {
+    perspective: 1000px;
   }
 
-  .animate-fade-up {
-    animation: fadeUp 0.6s ease-out forwards;
+  .perspective-2000 {
+    perspective: 2000px;
   }
 
-  .animate-scale-in {
-    animation: scaleIn 0.5s ease-out forwards;
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+
+  /* 3D tilt card hover */
+  .card-3d {
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    transform-style: preserve-3d;
+  }
+
+  .card-3d:hover {
+    transform: perspective(800px) rotateY(-5deg) rotateX(5deg) scale(1.02);
+    box-shadow: 10px 20px 40px hsla(215, 28%, 17%, 0.15);
+  }
+
+  /* Glassmorphism */
+  .glass {
+    background: hsla(0, 0%, 100%, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid hsla(0, 0%, 100%, 0.12);
+  }
+
+  .glass-dark {
+    background: hsla(215, 28%, 17%, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid hsla(0, 0%, 100%, 0.08);
   }
 }
 
+/* =================== ANIMATIONS =================== */
+
+/* Fade Up */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Scale In */
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Float */
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
 }
 
-@keyframes fadeUp {
+/* 3D Slide In */
+@keyframes slide3dIn {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: perspective(800px) rotateY(30deg) translateX(60px) scale(0.9);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: perspective(800px) rotateY(0deg) translateX(0) scale(1);
   }
 }
 
-@keyframes scaleIn {
+@keyframes slide3dOut {
+  from {
+    opacity: 1;
+    transform: perspective(800px) rotateY(0deg) translateX(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: perspective(800px) rotateY(-30deg) translateX(-60px) scale(0.9);
+  }
+}
+
+/* 3D Flip */
+@keyframes flip3dIn {
   from {
     opacity: 0;
-    transform: scale(0.9);
+    transform: perspective(600px) rotateX(-30deg) translateY(40px);
   }
   to {
     opacity: 1;
-    transform: scale(1);
+    transform: perspective(600px) rotateX(0deg) translateY(0);
   }
+}
+
+/* 3D Rotate carousel */
+@keyframes rotateCarousel {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+
+/* Shimmer */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Pulse glow */
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 20px hsla(38, 92%, 50%, 0.2); }
+  50% { box-shadow: 0 0 40px hsla(38, 92%, 50%, 0.5); }
+}
+
+/* Slide counter */
+@keyframes slideProgress {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.6s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.5s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-3d-slide-in {
+  animation: slide3dIn 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.animate-3d-flip-in {
+  animation: flip3dIn 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent 0%, hsla(0,0%,100%,0.15) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+.animate-slide-progress {
+  animation: slideProgress 5s linear forwards;
+}
+
+/* Story link underline animation */
+.story-link * {
+  @apply relative inline-block;
+}
+.story-link *::after {
+  content: '';
+  @apply absolute w-full scale-x-0 h-0.5 bottom-0 left-0 bg-primary origin-bottom-right transition-transform duration-300;
+}
+.story-link *:hover::after {
+  @apply scale-x-100 origin-bottom-left;
+}
+
+/* Hover scale utility */
+.hover-scale {
+  @apply transition-transform duration-200;
+}
+.hover-scale:hover {
+  @apply scale-105;
 }
