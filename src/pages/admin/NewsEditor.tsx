@@ -125,29 +125,44 @@ function NewsEditorContent() {
 
     setIsSaving(true);
     try {
-      const articleData = {
-        title: form.title,
-        excerpt: form.excerpt || null,
-        content: form.content,
-        category: form.category,
-        image_url: form.image_url || null,
-        is_featured: form.is_featured,
-        is_published: form.is_published,
-        published_at: form.is_published ? new Date().toISOString() : null,
-        author_id: user?.id,
-      };
+      const slug = form.title
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '');
 
       if (isEditing) {
         const { error } = await supabase
           .from('news_articles')
-          .update(articleData)
+          .update({
+            title: form.title,
+            slug,
+            excerpt: form.excerpt || null,
+            content: form.content,
+            category: form.category,
+            image_url: form.image_url || null,
+            is_featured: form.is_featured,
+            is_published: form.is_published,
+            published_at: form.is_published ? new Date().toISOString() : null,
+            author_id: user?.id,
+          })
           .eq('id', id);
 
         if (error) throw error;
       } else {
         const { error } = await supabase
           .from('news_articles')
-          .insert(articleData);
+          .insert([{
+            title: form.title,
+            slug,
+            excerpt: form.excerpt || null,
+            content: form.content,
+            category: form.category,
+            image_url: form.image_url || null,
+            is_featured: form.is_featured,
+            is_published: form.is_published,
+            published_at: form.is_published ? new Date().toISOString() : null,
+            author_id: user?.id,
+          }]);
 
         if (error) throw error;
       }
