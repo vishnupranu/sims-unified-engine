@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { AuthGuard } from "@/components/auth/AuthGuard";
+import { AIChatWidget } from "@/components/AIChatWidget";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -16,6 +17,7 @@ import StudentDashboard from "./pages/StudentDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import NewsManagement from "./pages/admin/NewsManagement";
 import NewsEditor from "./pages/admin/NewsEditor";
+import AdmissionsManagement from "./pages/admin/AdmissionsManagement";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -65,9 +67,15 @@ const App = () => (
                 <NewsEditor />
               </AuthGuard>
             } />
+            <Route path="/admin/admissions" element={
+              <AuthGuard requiredRoles={['admin']}>
+                <AdmissionsManagement />
+              </AuthGuard>
+            } />
 
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <AIChatWidget />
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
