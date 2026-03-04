@@ -3,9 +3,10 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { CheckCircle2, ArrowRight, FileText, CreditCard, GraduationCap, Calendar } from "lucide-react";
+import { CheckCircle2, ArrowRight, FileText, CreditCard, GraduationCap, Calendar, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 import {
   Select,
   SelectContent,
@@ -54,11 +55,38 @@ const Admissions = () => {
     college: "",
     program: "",
   });
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Application submitted successfully! Our team will contact you shortly.");
-    setFormData({ name: "", email: "", phone: "", college: "", program: "" });
+    setSubmitting(true);
+    try {
+      const { error } = await supabase.from('admissions').insert({
+        applicant_name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        college_applied: formData.college,
+        course_applied: formData.program,
+        gender: 'Not specified',
+        date_of_birth: '2000-01-01',
+        qualification: 'Intermediate',
+        board_university: 'Not specified',
+        year_of_passing: new Date().getFullYear(),
+        percentage: 0,
+        address: 'Not specified',
+        city: 'Not specified',
+        state: 'Andhra Pradesh',
+        pincode: '000000',
+      });
+      if (error) throw error;
+      toast.success("Application submitted successfully! Our team will contact you shortly.");
+      setFormData({ name: "", email: "", phone: "", college: "", program: "" });
+    } catch (err) {
+      toast.error("Failed to submit application. Please try again.");
+      console.error(err);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const selectedCollege = programs.find(p => p.college === formData.college);
@@ -198,9 +226,8 @@ const Admissions = () => {
                       </div>
                     )}
 
-                    <Button type="submit" size="lg" className="w-full gradient-gold text-foreground font-semibold">
-                      Submit Application
-                      <ArrowRight className="ml-2 h-5 w-5" />
+                    <Button type="submit" size="lg" className="w-full gradient-gold text-foreground font-semibold" disabled={submitting}>
+                      {submitting ? <><Loader2 className="mr-2 h-5 w-5 animate-spin" />Submitting...</> : <>Submit Application<ArrowRight className="ml-2 h-5 w-5" /></>}
                     </Button>
 
                     <p className="text-sm text-muted-foreground text-center">
